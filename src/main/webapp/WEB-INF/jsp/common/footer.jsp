@@ -18,7 +18,12 @@
                 <strong>Trợ lý Box Healthy</strong>
                 <span>Gợi ý món, macro và TDEE</span>
             </div>
-            <button class="ai-chat-close" type="button" aria-label="Đóng trợ lý AI" data-ai-chat-close>×</button>
+            <button class="ai-chat-close" type="button" aria-label="Đóng trợ lý AI" data-ai-chat-close>
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M18 6 6 18"/>
+                    <path d="m6 6 12 12"/>
+                </svg>
+            </button>
         </div>
         <div class="ai-chat-messages" data-ai-chat-messages>
             <div class="ai-chat-message bot">Chào bạn, mình có thể gợi ý món healthy theo mục tiêu của bạn.</div>
@@ -28,7 +33,7 @@
             <button type="submit" aria-label="Gửi tin nhắn">
                 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M22 2 11 13"/>
-                    <path d="m22 2-7 20-4-9-9-4 20-7Z"/>
+                    <path d="M22 2 15 22 11 13 2 9 22 2Z"/>
                 </svg>
             </button>
         </form>

@@ -462,19 +462,23 @@ label { display: block; font-weight: 800; margin-bottom: 8px; }
     color: #fff;
     box-shadow: 0 18px 36px rgba(5, 184, 79, 0.28);
     cursor: pointer;
+    transition: transform 0.18s ease, opacity 0.18s ease;
 }
 .ai-chat-toggle .icon {
     width: 28px;
     height: 28px;
+    display: block;
 }
 .ai-chat-widget.is-open .ai-chat-toggle {
-    transform: scale(0.92);
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.82);
 }
 .ai-chat-panel {
     position: absolute;
     right: 0;
-    bottom: 76px;
-    width: min(360px, calc(100vw - 32px));
+    bottom: 0;
+    width: min(340px, calc(100vw - 32px));
     overflow: hidden;
     border: 1px solid rgba(5, 184, 79, 0.16);
     border-radius: 22px;
@@ -512,12 +516,16 @@ label { display: block; font-weight: 800; margin-bottom: 8px; }
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.16);
     color: #fff;
-    font-size: 24px;
-    line-height: 1;
     cursor: pointer;
 }
+.ai-chat-close .icon {
+    width: 19px;
+    height: 19px;
+    display: block;
+    stroke-width: 3;
+}
 .ai-chat-messages {
-    height: 330px;
+    height: 300px;
     padding: 16px;
     overflow-y: auto;
     background: linear-gradient(180deg, #fbfffd, #fff);
@@ -568,10 +576,13 @@ label { display: block; font-weight: 800; margin-bottom: 8px; }
     background: var(--green);
     color: #fff;
     cursor: pointer;
+    flex: 0 0 44px;
 }
 .ai-chat-form button .icon {
-    width: 20px;
-    height: 20px;
+    width: 21px;
+    height: 21px;
+    display: block;
+    transform: translateX(1px);
 }
 .alert { padding: 12px 14px; border-radius: 12px; margin-bottom: 16px; background: #fff4df; color: #9a5a00; }
 .alert.success { background: var(--green-soft); color: var(--green-dark); }
@@ -655,6 +666,6 @@ label { display: block; font-weight: 800; margin-bottom: 8px; }
         bottom: 16px;
     }
     .ai-chat-panel {
-        bottom: 72px;
+        bottom: 0;
     }
 }

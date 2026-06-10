@@ -69,7 +69,7 @@ public class AiChatService {
 
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() < 200 || response.statusCode() >= 300) {
-                return "AI đang bận hoặc API key chưa hợp lệ. Bạn thử lại sau một chút nhé.";
+                return errorMessage(response.statusCode());
             }
 
             JsonNode root = objectMapper.readTree(response.body());
@@ -84,5 +84,18 @@ public class AiChatService {
         } catch (Exception ex) {
             return "AI đang lỗi kết nối tạm thời. Bạn thử lại sau một chút nhé.";
         }
+    }
+
+    private String errorMessage(int statusCode) {
+        if (statusCode == 401) {
+            return "API key DeepSeek chưa hợp lệ hoặc đã bị xóa. Bạn kiểm tra lại DEEPSEEK_API_KEY trên server nhé.";
+        }
+        if (statusCode == 402) {
+            return "Tài khoản DeepSeek chưa có balance để gọi API. Bạn kiểm tra Billing trên DeepSeek nhé.";
+        }
+        if (statusCode == 429) {
+            return "AI đang bị giới hạn lượt gọi. Bạn thử lại sau một chút nhé.";
+        }
+        return "AI đang lỗi kết nối DeepSeek mã " + statusCode + ". Bạn thử lại sau một chút nhé.";
     }
 }
