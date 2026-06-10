@@ -24,11 +24,10 @@ public class AiChatService {
 
     public AiChatService(
             @Value("${deepseek.api-key:${DEEPSEEK_API_KEY:}}") String apiKey,
-            @Value("${deepseek.model:${DEEPSEEK_MODEL:deepseek-v4-flash}}") String model,
-            ObjectMapper objectMapper) {
+            @Value("${deepseek.model:${DEEPSEEK_MODEL:deepseek-v4-flash}}") String model) {
         this.apiKey = apiKey;
         this.model = model;
-        this.objectMapper = objectMapper;
+        this.objectMapper = new ObjectMapper();
         this.httpClient = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(10))
                 .build();
