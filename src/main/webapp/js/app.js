@@ -69,6 +69,31 @@ document.addEventListener("DOMContentLoaded", function () {
         var form = select.closest("form");
         var panel = form && form.querySelector("[data-bank-transfer-panel]");
         var submitText = form && form.querySelector("[data-checkout-submit-text]");
+        var phoneInput = form && form.querySelector("[data-checkout-phone]");
+        var vietQrImg = form && form.querySelector("[data-vietqr-img]");
+        var transferNote = form && form.querySelector("[data-transfer-note]");
+
+        function getTransferNote() {
+            var phone = phoneInput && phoneInput.value ? phoneInput.value.replace(/[^\d]/g, "") : "";
+            return phone ? "BOXHEALTHY " + phone : "BOXHEALTHY";
+        }
+
+        function syncVietQr() {
+            var note = getTransferNote();
+            if (transferNote) {
+                transferNote.textContent = note;
+            }
+            if (!vietQrImg) {
+                return;
+            }
+
+            var params = new URLSearchParams({
+                amount: vietQrImg.dataset.amount || "0",
+                addInfo: note,
+                accountName: vietQrImg.dataset.accountName || "NGO VAN SU"
+            });
+            vietQrImg.src = "https://img.vietqr.io/image/VCB-9904534713-compact2.png?" + params.toString();
+        }
 
         function syncPaymentUi() {
             var isBankTransfer = select.value === "BANK_TRANSFER";
@@ -78,9 +103,15 @@ document.addEventListener("DOMContentLoaded", function () {
             if (submitText) {
                 submitText.textContent = isBankTransfer ? "Tôi đã chuyển khoản" : "Đặt hàng";
             }
+            if (isBankTransfer) {
+                syncVietQr();
+            }
         }
 
         select.addEventListener("change", syncPaymentUi);
+        if (phoneInput) {
+            phoneInput.addEventListener("input", syncVietQr);
+        }
         syncPaymentUi();
     });
 

@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <c:set var="pageCss" value="cart.css" scope="request"/>
+<fmt:formatNumber var="vietQrAmount" value="${total}" maxFractionDigits="0" groupingUsed="false"/>
 <jsp:include page="common/header.jsp"/>
 
 <section class="section soft checkout-page">
@@ -38,7 +39,7 @@
                     </div>
                     <div>
                         <label>Số điện thoại</label>
-                        <input name="phone" value="${checkoutRequest.phone}" placeholder="0909123456" required>
+                        <input name="phone" value="${checkoutRequest.phone}" placeholder="0909123456" required data-checkout-phone>
                     </div>
                     <div>
                         <label>Email</label>
@@ -67,20 +68,33 @@
 
                 <div class="bank-transfer-panel" data-bank-transfer-panel hidden>
                     <div class="bank-transfer-qr">
-                        <img src="<c:url value='/images/bank-transfer-qr.svg'/>" alt="Mã QR chuyển khoản Box Healthy">
+                        <img
+                            src="https://img.vietqr.io/image/VCB-9904534713-compact2.png?amount=${vietQrAmount}&amp;addInfo=BOXHEALTHY&amp;accountName=NGO%20VAN%20SU"
+                            alt="Mã QR chuyển khoản Box Healthy"
+                            data-vietqr-img
+                            data-amount="${vietQrAmount}"
+                            data-account-name="NGO VAN SU">
                     </div>
                     <div class="bank-transfer-info">
                         <span class="eyebrow">Chuyển khoản</span>
-                        <h4>Quét mã QR để thanh toán</h4>
-                        <p>Nội dung chuyển khoản nên ghi: <strong>BOXHEALTHY - số điện thoại của bạn</strong>.</p>
+                        <h4>Quét mã QR đúng số tiền</h4>
+                        <p>QR đã gắn sẵn số tiền <strong><fmt:formatNumber value="${total}" type="number"/>đ</strong>. Nội dung chuyển khoản sẽ tự thêm số điện thoại nếu bạn nhập ở trên.</p>
                         <dl>
                             <div>
-                                <dt>Người nhận</dt>
-                                <dd>Box Healthy</dd>
+                                <dt>Ngân hàng</dt>
+                                <dd>Vietcombank (VCB)</dd>
                             </div>
                             <div>
-                                <dt>Ghi chú</dt>
-                                <dd>Thay ảnh QR tại <code>/images/bank-transfer-qr.svg</code> bằng mã QR thật của bạn.</dd>
+                                <dt>Số tài khoản</dt>
+                                <dd>9904534713</dd>
+                            </div>
+                            <div>
+                                <dt>Người nhận</dt>
+                                <dd>NGO VAN SU</dd>
+                            </div>
+                            <div>
+                                <dt>Nội dung</dt>
+                                <dd><code data-transfer-note>BOXHEALTHY</code></dd>
                             </div>
                         </dl>
                     </div>
