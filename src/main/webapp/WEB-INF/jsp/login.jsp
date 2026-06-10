@@ -1,0 +1,72 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<c:set var="pageCss" value="auth.css" scope="request"/>
+<jsp:include page="common/header.jsp"/>
+
+<main class="auth-page">
+    <section class="auth-left">
+        <div class="auth-brand-panel">
+            <div class="auth-logo-frame">
+                <img class="auth-logo-image" src="${pageContext.request.contextPath}/images/logo-boxhealthy.png" alt="Box Healthy">
+            </div>
+            <p class="auth-kicker">Box Healthy meal prep</p>
+            <h2>Ăn lành mỗi ngày</h2>
+            <p class="auth-copy">Bữa ăn cân bằng, đóng gói tiện lợi và hợp với nhịp sống bận rộn.</p>
+            <div class="auth-feature-grid">
+                <div><strong>Nhanh</strong><span>Tiết kiệm thời gian</span></div>
+                <div><strong>Tiện</strong><span>Dễ đặt, dễ dùng</span></div>
+                <div><strong>Khỏe</strong><span>Dinh dưỡng cân bằng</span></div>
+            </div>
+        </div>
+    </section>
+    <section class="auth-main">
+        <form class="auth-card" action="<c:url value='/login'/>" method="post">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+            <div class="auth-form-logo">
+                <img src="${pageContext.request.contextPath}/images/logo-boxhealthy.png" alt="Box Healthy">
+            </div>
+            <h1>Đăng Nhập</h1>
+            <p class="subtitle">Chào mừng bạn trở lại!</p>
+            <c:if test="${param.error != null}"><div class="alert">Email hoặc mật khẩu chưa đúng.</div></c:if>
+            <c:if test="${param.registered != null}"><div class="alert success">Đăng ký thành công, bạn có thể đăng nhập.</div></c:if>
+
+            <label>Email</label>
+            <input type="email" name="email" placeholder="your@email.com" required>
+            <div class="field-spacer"></div>
+
+            <label>Mật khẩu</label>
+            <input type="password" name="password" placeholder="••••••••" required>
+
+            <div class="auth-row">
+                <label class="inline-check">
+                    <input type="checkbox" name="remember-me"> Ghi nhớ đăng nhập
+                </label>
+                <a class="auth-link" href="#">Quên mật khẩu?</a>
+            </div>
+
+            <button type="submit">Đăng nhập</button>
+            <div class="divider">Hoặc tiếp tục với</div>
+            <div class="social-row">
+                <button class="social google" type="button">
+                    <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="#4285F4" d="M21.6 12.2c0-.7-.1-1.4-.2-2H12v3.8h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.8 3-4.3 3-7.3Z"/>
+                        <path fill="#34A853" d="M12 22c2.7 0 5-.9 6.6-2.5L15.4 17c-.9.6-2 .9-3.4.9-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22Z"/>
+                        <path fill="#FBBC05" d="M6.4 13.8a6 6 0 0 1 0-3.6V7.6H3.1a10 10 0 0 0 0 8.8l3.3-2.6Z"/>
+                        <path fill="#EA4335" d="M12 6.1c1.5 0 2.8.5 3.8 1.5l2.9-2.9A9.8 9.8 0 0 0 12 2 10 10 0 0 0 3.1 7.6l3.3 2.6C7.2 7.9 9.4 6.1 12 6.1Z"/>
+                    </svg>
+                    Google
+                </button>
+                <button class="social facebook" type="button">
+                    <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10" fill="#1877F2"/>
+                        <path fill="#fff" d="M13.4 22v-7.7h2.6l.4-3h-3V9.4c0-.9.2-1.5 1.5-1.5h1.6V5.2c-.8-.1-1.6-.2-2.4-.2-2.4 0-4 1.5-4 4.1v2.3H7.4v3h2.7V22h3.3Z"/>
+                    </svg>
+                    Facebook
+                </button>
+            </div>
+            <p class="form-note">Chưa có tài khoản? <a href="<c:url value='/register'/>">Đăng ký ngay</a></p>
+        </form>
+    </section>
+</main>
+
+<jsp:include page="common/footer.jsp"/>
