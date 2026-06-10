@@ -65,6 +65,25 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 4200);
     }
 
+    document.querySelectorAll("[data-payment-method]").forEach(function (select) {
+        var form = select.closest("form");
+        var panel = form && form.querySelector("[data-bank-transfer-panel]");
+        var submitText = form && form.querySelector("[data-checkout-submit-text]");
+
+        function syncPaymentUi() {
+            var isBankTransfer = select.value === "BANK_TRANSFER";
+            if (panel) {
+                panel.hidden = !isBankTransfer;
+            }
+            if (submitText) {
+                submitText.textContent = isBankTransfer ? "Tôi đã chuyển khoản" : "Đặt hàng";
+            }
+        }
+
+        select.addEventListener("change", syncPaymentUi);
+        syncPaymentUi();
+    });
+
     document.querySelectorAll("[data-toggle-detail]").forEach(function (button) {
         button.addEventListener("click", function () {
             var card = button.closest(".nutrition-card");

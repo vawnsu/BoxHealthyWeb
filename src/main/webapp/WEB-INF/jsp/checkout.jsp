@@ -58,15 +58,36 @@
                     </div>
                     <div class="full">
                         <label>Phương thức thanh toán</label>
-                        <select name="paymentMethod">
-                            <option value="COD">Thanh toán khi nhận hàng</option>
-                            <option value="BANK_TRANSFER">Chuyển khoản ngân hàng</option>
+                        <select name="paymentMethod" data-payment-method>
+                            <option value="COD" ${checkoutRequest.paymentMethod == 'COD' ? 'selected' : ''}>Thanh toán khi nhận hàng</option>
+                            <option value="BANK_TRANSFER" ${checkoutRequest.paymentMethod == 'BANK_TRANSFER' ? 'selected' : ''}>Chuyển khoản ngân hàng</option>
                         </select>
                     </div>
                 </div>
 
-                <button class="checkout-submit" type="submit">
-                    Đặt hàng
+                <div class="bank-transfer-panel" data-bank-transfer-panel hidden>
+                    <div class="bank-transfer-qr">
+                        <img src="<c:url value='/images/bank-transfer-qr.svg'/>" alt="Mã QR chuyển khoản Box Healthy">
+                    </div>
+                    <div class="bank-transfer-info">
+                        <span class="eyebrow">Chuyển khoản</span>
+                        <h4>Quét mã QR để thanh toán</h4>
+                        <p>Nội dung chuyển khoản nên ghi: <strong>BOXHEALTHY - số điện thoại của bạn</strong>.</p>
+                        <dl>
+                            <div>
+                                <dt>Người nhận</dt>
+                                <dd>Box Healthy</dd>
+                            </div>
+                            <div>
+                                <dt>Ghi chú</dt>
+                                <dd>Thay ảnh QR tại <code>/images/bank-transfer-qr.svg</code> bằng mã QR thật của bạn.</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+
+                <button class="checkout-submit" type="submit" data-checkout-submit>
+                    <span data-checkout-submit-text>Đặt hàng</span>
                     <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M5 12h14"></path>
                         <path d="m12 5 7 7-7 7"></path>
