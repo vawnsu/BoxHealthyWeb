@@ -267,4 +267,84 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 600);
         });
     });
+
+    document.querySelectorAll("[data-ai-chat]").forEach(function (widget) {
+        var toggle = widget.querySelector("[data-ai-chat-toggle]");
+        var close = widget.querySelector("[data-ai-chat-close]");
+        var panel = widget.querySelector(".ai-chat-panel");
+        var form = widget.querySelector("[data-ai-chat-form]");
+        var input = form && form.querySelector("input[name='message']");
+        var messages = widget.querySelector("[data-ai-chat-messages]");
+        var csrfToken = document.querySelector("meta[name='_csrf']");
+        var csrfHeader = document.querySelector("meta[name='_csrf_header']");
+
+        function setOpen(open) {
+            if (!panel) {
+                return;
+            }
+            panel.hidden = !open;
+            widget.classList.toggle("is-open", open);
+            if (open && input) {
+                window.setTimeout(function () {
+                    input.focus();
+                }, 80);
+            }
+        }
+
+        function appendMessage(type, text) {
+            var message = document.createElement("div");
+            message.className = "ai-chat-message " + type;
+            message.textContent = text;
+            messages.appendChild(message);
+            messages.scrollTop = messages.scrollHeight;
+            return message;
+        }
+
+        if (toggle) {
+            toggle.addEventListener("click", function () {
+                setOpen(panel && panel.hidden);
+            });
+        }
+        if (close) {
+            close.addEventListener("click", function () {
+                setOpen(false);
+            });
+        }
+        if (form) {
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+                var text = input && input.value ? input.value.trim() : "";
+                if (!text) {
+                    return;
+                }
+                appendMessage("user", text);
+                input.value = "";
+                var pending = appendMessage("bot is-loading", "Đang trả lời...");
+                var headers = { "Content-Type": "application/json" };
+                if (csrfToken && csrfHeader && csrfToken.content && csrfHeader.content) {
+                    headers[csrfHeader.content] = csrfToken.content;
+                }
+
+                fetch((window.APP_CONTEXT_PATH || "") + "/api/chat", {
+                    method: "POST",
+                    headers: headers,
+                    body: JSON.stringify({ message: text })
+                })
+                    .then(function (response) {
+                        if (!response.ok) {
+                            throw new Error("Chat request failed");
+                        }
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        pending.classList.remove("is-loading");
+                        pending.textContent = data.reply || "Mình chưa có câu trả lời phù hợp.";
+                    })
+                    .catch(function () {
+                        pending.classList.remove("is-loading");
+                        pending.textContent = "Chat AI đang lỗi kết nối. Bạn thử lại sau nhé.";
+                    });
+            });
+        }
+    });
 });
