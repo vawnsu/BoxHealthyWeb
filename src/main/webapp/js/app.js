@@ -69,13 +69,18 @@ document.addEventListener("DOMContentLoaded", function () {
         var form = select.closest("form");
         var panel = form && form.querySelector("[data-bank-transfer-panel]");
         var submitText = form && form.querySelector("[data-checkout-submit-text]");
+        var customerNameInput = form && form.querySelector("[data-checkout-customer-name]");
         var phoneInput = form && form.querySelector("[data-checkout-phone]");
         var vietQrImg = form && form.querySelector("[data-vietqr-img]");
         var transferNote = form && form.querySelector("[data-transfer-note]");
 
         function getTransferNote() {
+            var customerName = customerNameInput && customerNameInput.value ? customerNameInput.value.trim() : "";
             var phone = phoneInput && phoneInput.value ? phoneInput.value.replace(/[^\d]/g, "") : "";
-            return phone ? "BOXHEALTHY " + phone : "BOXHEALTHY";
+            if (customerName && phone) {
+                return customerName + " " + phone;
+            }
+            return customerName || phone || "BOXHEALTHY";
         }
 
         function syncVietQr() {
@@ -109,6 +114,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         select.addEventListener("change", syncPaymentUi);
+        if (customerNameInput) {
+            customerNameInput.addEventListener("input", syncVietQr);
+        }
         if (phoneInput) {
             phoneInput.addEventListener("input", syncVietQr);
         }

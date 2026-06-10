@@ -35,7 +35,7 @@
                 <div class="form-grid">
                     <div>
                         <label>Họ tên</label>
-                        <input name="customerName" value="${checkoutRequest.customerName}" placeholder="Nguyễn Văn A" required>
+                        <input name="customerName" value="${checkoutRequest.customerName}" placeholder="Nguyễn Văn A" required data-checkout-customer-name>
                     </div>
                     <div>
                         <label>Số điện thoại</label>
@@ -76,9 +76,7 @@
                             data-account-name="NGO VAN SU">
                     </div>
                     <div class="bank-transfer-info">
-                        <span class="eyebrow">Chuyển khoản</span>
-                        <h4>Quét mã QR đúng số tiền</h4>
-                        <p>QR đã gắn sẵn số tiền <strong><fmt:formatNumber value="${total}" type="number"/>đ</strong>. Nội dung chuyển khoản sẽ tự thêm số điện thoại nếu bạn nhập ở trên.</p>
+                        <h4>Quét mã QR thanh toán</h4>
                         <dl>
                             <div>
                                 <dt>Ngân hàng</dt>
@@ -139,12 +137,6 @@
                             <span><fmt:formatNumber value="${item.subtotal}" type="number"/>đ</span>
                         </div>
                     </c:forEach>
-                </div>
-
-                <div class="checkout-benefits">
-                    <span>Đóng gói sạch</span>
-                    <span>Đủ macro</span>
-                    <span>Giao đúng giờ</span>
                 </div>
 
                 <div class="summary-total">
