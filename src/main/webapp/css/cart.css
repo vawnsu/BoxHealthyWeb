@@ -142,6 +142,37 @@
     background: #fbfffd;
 }
 
+.cart-update-button {
+    min-width: 132px;
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border: 1px solid #dce3ec;
+    border-radius: 16px;
+    background: #fff;
+    color: var(--green-dark);
+    box-shadow: none;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.35;
+    white-space: nowrap;
+}
+
+.cart-update-button .icon {
+    width: 17px;
+    height: 17px;
+}
+
+.cart-update-button:hover {
+    background: var(--green-soft);
+    color: var(--green-dark);
+    box-shadow: 0 10px 22px rgba(5, 184, 79, 0.12);
+}
+
 .cart-subtotal {
     display: flex;
     align-items: center;

@@ -36,6 +36,9 @@
                     <circle cx="9.5" cy="20" r="1.5"/>
                     <circle cx="17.5" cy="20" r="1.5"/>
                 </svg>
+                <c:if test="${cartCount > 0}">
+                    <span class="cart-count-badge">${cartCount}</span>
+                </c:if>
             </a>
 
             <c:choose>

@@ -59,7 +59,15 @@
                                 <form class="quantity-form" action="<c:url value='/cart/update/${item.product.id}'/>" method="post">
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                                     <input type="number" min="0" name="quantity" value="${item.quantity}" aria-label="Số lượng ${item.product.name}">
-                                    <button class="btn small secondary" type="submit">Cập nhật</button>
+                                    <button class="cart-update-button" type="submit" aria-label="Cập nhật số lượng ${item.product.name}">
+                                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M21 12a9 9 0 0 1-15.4 6.4L3 16"></path>
+                                            <path d="M3 21v-5h5"></path>
+                                            <path d="M3 12a9 9 0 0 1 15.4-6.4L21 8"></path>
+                                            <path d="M21 3v5h-5"></path>
+                                        </svg>
+                                        <span>Cập nhật</span>
+                                    </button>
                                 </form>
 
                                 <div class="cart-subtotal">
