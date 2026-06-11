@@ -34,7 +34,6 @@
     <div class="container">
         <div class="section-title">
             <h2>Danh Mục Sản Phẩm</h2>
-            <p>Các nhóm sản phẩm đang ACTIVE trong database Box Healthy.</p>
         </div>
     </div>
     <div class="category-carousel" aria-label="Danh mục sản phẩm">
@@ -84,7 +83,6 @@
     <div class="container">
         <div class="section-title">
             <h2>Sản Phẩm Nổi Bật</h2>
-            <p>Các món healthy đang ACTIVE trong database Box Healthy.</p>
         </div>
         <div class="product-grid">
             <c:forEach items="${featuredProducts}" var="product">
