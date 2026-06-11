@@ -16,9 +16,12 @@ public class NotificationService {
     private static final Locale VIETNAM = Locale.forLanguageTag("vi-VN");
 
     private final NotificationRepository notificationRepository;
+    private final MailNotificationService mailNotificationService;
 
-    public NotificationService(NotificationRepository notificationRepository) {
+    public NotificationService(NotificationRepository notificationRepository,
+                               MailNotificationService mailNotificationService) {
         this.notificationRepository = notificationRepository;
+        this.mailNotificationService = mailNotificationService;
     }
 
     public void notifyNewOrder(Order order) {
@@ -31,7 +34,8 @@ public class NotificationService {
         notification.setMessage(buildOrderMessage(order, bankTransfer));
         notification.setTargetUrl("/admin/orders/" + order.getId());
         notification.setOrder(order);
-        notificationRepository.save(notification);
+        Notification savedNotification = notificationRepository.save(notification);
+        mailNotificationService.send(savedNotification);
     }
 
     public List<Notification> findLatest() {
