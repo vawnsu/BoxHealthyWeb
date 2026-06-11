@@ -22,12 +22,14 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderDetailRepository orderDetailRepository;
     private final ProductRepository productRepository;
+    private final NotificationService notificationService;
 
     public OrderService(OrderRepository orderRepository, OrderDetailRepository orderDetailRepository,
-                        ProductRepository productRepository) {
+                        ProductRepository productRepository, NotificationService notificationService) {
         this.orderRepository = orderRepository;
         this.orderDetailRepository = orderDetailRepository;
         this.productRepository = productRepository;
+        this.notificationService = notificationService;
     }
 
     @Transactional
@@ -66,6 +68,7 @@ public class OrderService {
             detail.setSubtotal(product.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
             orderDetailRepository.save(detail);
         }
+        notificationService.notifyNewOrder(savedOrder);
         return savedOrder;
     }
 

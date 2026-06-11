@@ -44,6 +44,16 @@
                 </svg>
                 Quản lý đơn hàng
             </a>
+            <a href="<c:url value='/admin/notifications'/>" class="admin-menu-notification">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z"/>
+                    <path d="M10 21h4"/>
+                </svg>
+                Thông báo
+                <c:if test="${adminUnreadNotificationCount > 0}">
+                    <span class="admin-menu-badge">${adminUnreadNotificationCount}</span>
+                </c:if>
+            </a>
             <a href="<c:url value='/admin/categories'/>">
                 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M4 7h16M4 12h16M4 17h16"/>

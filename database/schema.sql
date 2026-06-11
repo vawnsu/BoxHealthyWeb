@@ -8,6 +8,7 @@ USE BoxHealthy;
 GO
 
 IF OBJECT_ID(N'order_detail', N'U') IS NOT NULL DROP TABLE order_detail;
+IF OBJECT_ID(N'notification', N'U') IS NOT NULL DROP TABLE notification;
 IF OBJECT_ID(N'cart_item', N'U') IS NOT NULL DROP TABLE cart_item;
 IF OBJECT_ID(N'orders', N'U') IS NOT NULL DROP TABLE orders;
 IF OBJECT_ID(N'cart', N'U') IS NOT NULL DROP TABLE cart;
@@ -111,6 +112,18 @@ CREATE TABLE order_detail (
     subtotal DECIMAL(18,2),
     CONSTRAINT fk_order_detail_order FOREIGN KEY (order_id) REFERENCES orders(id),
     CONSTRAINT fk_order_detail_product FOREIGN KEY (product_id) REFERENCES product(id)
+);
+
+CREATE TABLE notification (
+    id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    type NVARCHAR(80) NOT NULL,
+    title NVARCHAR(255) NOT NULL,
+    message NVARCHAR(1000),
+    target_url NVARCHAR(500),
+    order_id BIGINT NULL,
+    read_at DATETIME2,
+    created_at DATETIME2,
+    CONSTRAINT fk_notification_order FOREIGN KEY (order_id) REFERENCES orders(id)
 );
 
 CREATE TABLE nutrition_item (

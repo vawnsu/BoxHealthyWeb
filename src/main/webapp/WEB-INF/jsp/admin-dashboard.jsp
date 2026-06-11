@@ -27,6 +27,10 @@
             <strong>${orderCount}</strong>
         </article>
         <article class="admin-stat-card">
+            <span>Thông báo mới</span>
+            <strong>${adminUnreadNotificationCount}</strong>
+        </article>
+        <article class="admin-stat-card">
             <span>Sản phẩm</span>
             <strong>${activeProductCount}</strong>
         </article>
