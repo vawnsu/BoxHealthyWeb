@@ -120,25 +120,13 @@
 
                     <div class="detail-products refined">
                         <c:forEach items="${details}" var="detail" varStatus="loop">
-                            <c:set var="productImage" value="${detail.product.imageUrl}"/>
-                            <c:if test="${empty productImage}">
-                                <c:set var="productImage" value="/images/product-1.svg"/>
-                            </c:if>
-                            <c:if test="${not fn:startsWith(productImage, 'http')}">
-                                <c:set var="productImage" value="${pageContext.request.contextPath}${productImage}"/>
-                            </c:if>
-                            <article class="detail-product refined" style="--delay:${loop.index * 80}ms">
-                                <a class="detail-product-image" href="<c:url value='/products/${detail.product.id}'/>">
-                                    <img src="${productImage}" alt="${detail.product.name}">
-                                </a>
+                            <article class="detail-product refined order-product-simple" style="--delay:${loop.index * 80}ms">
                                 <div class="detail-product-info">
                                     <a href="<c:url value='/products/${detail.product.id}'/>">${detail.product.name}</a>
                                     <p>${detail.product.calories} kcal · ${detail.product.protein}g protein · ${detail.product.carbs}g carbs · ${detail.product.fat}g fat</p>
-                                    <div class="macro-chips">
-                                        <span>${detail.product.calories} kcal</span>
-                                        <span>${detail.product.protein}g protein</span>
-                                        <span>x ${detail.quantity}</span>
-                                    </div>
+                                </div>
+                                <div class="order-product-quantity">
+                                    <span>x ${detail.quantity}</span>
                                 </div>
                                 <div class="detail-product-money">
                                     <small>Đơn giá</small>
