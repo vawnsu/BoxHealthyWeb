@@ -48,7 +48,30 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public List<User> findAllNewestFirst() {
+        return userRepository.findAllByOrderByCreatedAtDesc();
+    }
+
+    public User getById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Khong tim thay nguoi dung"));
+    }
+
+    public User updateEnabled(Long id, boolean enabled) {
+        User user = getById(id);
+        user.setEnabled(enabled);
+        return userRepository.save(user);
+    }
+
     public long countAll() {
         return userRepository.count();
+    }
+
+    public long countByRole(Role role) {
+        return userRepository.countByRole(role);
+    }
+
+    public long countByEnabled(boolean enabled) {
+        return userRepository.countByEnabled(enabled);
     }
 }

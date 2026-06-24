@@ -54,6 +54,13 @@
                     <span class="admin-menu-badge">${adminUnreadNotificationCount}</span>
                 </c:if>
             </a>
+            <a href="<c:url value='/admin/users'/>">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M16 11a4 4 0 1 0-8 0 4 4 0 0 0 8 0Z"/>
+                    <path d="M4 21a8 8 0 0 1 16 0"/>
+                </svg>
+                Quản lý tài khoản
+            </a>
             <a href="<c:url value='/admin/categories'/>">
                 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M4 7h16M4 12h16M4 17h16"/>
