@@ -6,14 +6,12 @@
 <section class="admin-page">
     <div class="admin-page-head">
         <div>
-            <span class="admin-kicker">Dashboard</span>
             <h1>Tổng quan vận hành</h1>
-            <p>Theo dõi doanh thu, đơn hàng, người dùng và sản phẩm của Box Healthy.</p>
         </div>
         <a class="admin-primary-action" href="<c:url value='/admin/products/new'/>">Thêm sản phẩm</a>
     </div>
 
-    <div class="admin-stats-grid">
+    <div class="admin-stats-grid dashboard-stats">
         <article class="admin-stat-card revenue">
             <span>Doanh thu hoàn tất</span>
             <strong><fmt:formatNumber value="${totalRevenue}" type="number"/>đ</strong>
@@ -30,18 +28,57 @@
             <span>Thông báo mới</span>
             <strong>${adminUnreadNotificationCount}</strong>
         </article>
-        <article class="admin-stat-card">
-            <span>Sản phẩm</span>
-            <strong>${activeProductCount}</strong>
-        </article>
     </div>
+
+    <section class="admin-panel revenue-panel">
+        <div class="admin-panel-head revenue-head">
+            <div>
+                <h2>Doanh thu theo thời gian</h2>
+            </div>
+            <div class="admin-range-tabs">
+                <a class="${period == 'week' ? 'active' : ''}" href="${pageContext.request.contextPath}/admin?period=week">Tuần</a>
+                <a class="${period == 'month' ? 'active' : ''}" href="${pageContext.request.contextPath}/admin?period=month">Tháng</a>
+                <a class="${period == 'year' ? 'active' : ''}" href="${pageContext.request.contextPath}/admin?period=year">Năm</a>
+            </div>
+        </div>
+
+        <div class="revenue-summary-grid">
+            <article>
+                <span>Doanh thu kỳ này</span>
+                <strong><fmt:formatNumber value="${periodRevenue}" type="number"/>đ</strong>
+            </article>
+            <article>
+                <span>Đơn hoàn tất</span>
+                <strong>${periodOrderCount}</strong>
+            </article>
+            <article>
+                <span>Trung bình mỗi đơn</span>
+                <strong><fmt:formatNumber value="${averageOrderValue}" type="number"/>đ</strong>
+            </article>
+        </div>
+
+        <div class="revenue-chart-wrap">
+            <div class="revenue-bars">
+                <c:forEach items="${revenueChart}" var="point">
+                    <div class="revenue-bar-item" title="${point.label}: ${point.revenue}">
+                        <div class="revenue-bar-track">
+                            <span style="height: ${point.percent}%"></span>
+                        </div>
+                        <small>${point.label}</small>
+                    </div>
+                </c:forEach>
+            </div>
+            <svg class="revenue-line-chart" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                <polyline points="${lineChartPoints}" />
+            </svg>
+        </div>
+    </section>
 
     <div class="admin-dashboard-grid">
         <section class="admin-panel">
             <div class="admin-panel-head">
                 <div>
                     <h2>Đơn hàng gần đây</h2>
-                    <p>5 đơn mới nhất trong hệ thống</p>
                 </div>
                 <a href="<c:url value='/admin/orders'/>">Xem tất cả</a>
             </div>
@@ -80,7 +117,6 @@
             <div class="admin-panel-head">
                 <div>
                     <h2>Tình trạng</h2>
-                    <p>Điểm nhanh hoạt động hiện tại</p>
                 </div>
             </div>
             <div class="ops-list">

@@ -52,6 +52,13 @@ public class UserService {
         return userRepository.findAllByOrderByCreatedAtDesc();
     }
 
+    public List<User> findByRoleNewestFirst(Role role) {
+        if (role == null) {
+            return findAllNewestFirst();
+        }
+        return userRepository.findByRoleOrderByCreatedAtDesc(role);
+    }
+
     public User getById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Khong tim thay nguoi dung"));

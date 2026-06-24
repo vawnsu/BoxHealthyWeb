@@ -10,6 +10,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
     boolean existsByEmail(String email);
     List<User> findAllByOrderByCreatedAtDesc();
+    List<User> findByRoleOrderByCreatedAtDesc(Role role);
     long countByRole(Role role);
     long countByEnabled(boolean enabled);
 }

@@ -55,7 +55,7 @@
                     </div>
                     <div class="full">
                         <label>Ghi chú</label>
-                        <textarea name="note" rows="4" placeholder="Ít cay, thêm muỗng, gọi trước khi giao...">${checkoutRequest.note}</textarea>
+                        <textarea name="note" rows="4" placeholder="">${checkoutRequest.note}</textarea>
                     </div>
                     <div class="full">
                         <label>Phương thức thanh toán</label>
@@ -69,11 +69,10 @@
                 <div class="bank-transfer-panel" data-bank-transfer-panel hidden>
                     <div class="bank-transfer-qr">
                         <img
-                            src="https://img.vietqr.io/image/VCB-9904534713-compact2.png?amount=${vietQrAmount}&amp;addInfo=BOXHEALTHY&amp;accountName=NGO%20VAN%20SU"
-                            alt="Mã QR chuyển khoản Box Healthy"
+                            src="https://img.vietqr.io/image/TPB-00000817755-compact2.png?amount=${vietQrAmount}&amp;addInfo=BOXHEALTHY&amp;accountName=DUONG%20THI%20YEN%20NHI"                            alt="Mã QR chuyển khoản Box Healthy"
                             data-vietqr-img
                             data-amount="${vietQrAmount}"
-                            data-account-name="NGO VAN SU">
+                            data-account-name="">
                     </div>
                     <div class="bank-transfer-info">
                         <h4>Quét mã QR thanh toán</h4>
