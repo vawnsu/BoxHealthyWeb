@@ -70,6 +70,18 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    public List<Product> searchAdmin(String keyword, Long categoryId) {
+        String normalizedKeyword = keyword == null ? "" : keyword.trim().toLowerCase(Locale.ROOT);
+        return productRepository.findAll()
+                .stream()
+                .filter(product -> normalizedKeyword.isEmpty()
+                        || containsIgnoreCase(product.getName(), normalizedKeyword)
+                        || containsIgnoreCase(product.getDescription(), normalizedKeyword))
+                .filter(product -> categoryId == null
+                        || (product.getCategory() != null && categoryId.equals(product.getCategory().getId())))
+                .toList();
+    }
+
     public long countAll() {
         return productRepository.count();
     }
@@ -152,8 +164,11 @@ public class ProductService {
         return form;
     }
 
+    @Transactional
     public void delete(Long id) {
-        productRepository.deleteById(id);
+        Product product = getById(id);
+        product.setStatus("INACTIVE");
+        productRepository.save(product);
     }
 
     private void syncIngredients(Product product, List<ProductIngredientFormDto> ingredientForms) {
@@ -249,6 +264,10 @@ public class ProductService {
 
     private double round1(double value) {
         return Math.round(value * 10.0) / 10.0;
+    }
+
+    private boolean containsIgnoreCase(String value, String normalizedKeyword) {
+        return value != null && value.toLowerCase(Locale.ROOT).contains(normalizedKeyword);
     }
 
     private String storeProductImage(MultipartFile imageFile) {

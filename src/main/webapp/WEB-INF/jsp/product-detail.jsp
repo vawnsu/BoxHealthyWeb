@@ -15,7 +15,7 @@
         <div class="product-detail-shell">
             <div class="product-detail-gallery">
                 <div class="product-image product-detail-image">
-                    <img src="${productImage}" alt="${product.name}" onerror="this.style.display='none'">
+                    <img src="${productImage}" alt="${product.name}" onerror="this.onerror=null;this.src='${pageContext.request.contextPath}/images/product-1.svg';">
                 </div>
                 <div class="detail-mini-grid">
                     <div><strong>1 hộp</strong><span>Khẩu phần</span></div>
@@ -148,7 +148,7 @@
                             <c:set var="relatedImage" value="${pageContext.request.contextPath}${related.imageUrl}"/>
                         </c:if>
                         <a class="related-card" href="<c:url value='/products/${related.id}'/>">
-                            <img src="${relatedImage}" alt="${related.name}" onerror="this.style.display='none'">
+                            <img src="${relatedImage}" alt="${related.name}" onerror="this.onerror=null;this.src='${pageContext.request.contextPath}/images/product-1.svg';">
                             <div>
                                 <strong>${related.name}</strong>
                                 <span><fmt:formatNumber value="${related.price}" type="number"/>đ</span>

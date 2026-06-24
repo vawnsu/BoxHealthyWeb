@@ -30,7 +30,7 @@
                         <c:set var="productImage" value="${pageContext.request.contextPath}${detail.product.imageUrl}"/>
                     </c:if>
                     <article class="admin-order-item">
-                        <img src="${productImage}" alt="${detail.product.name}">
+                        <img src="${productImage}" alt="${detail.product.name}" onerror="this.onerror=null;this.src='${pageContext.request.contextPath}/images/product-1.svg';">
                         <div>
                             <strong>${detail.product.name}</strong>
                             <small>x ${detail.quantity}</small>

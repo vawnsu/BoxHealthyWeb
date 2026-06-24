@@ -92,7 +92,7 @@
                 </c:if>
                 <div class="product-card">
                     <a class="product-image" href="<c:url value='/products/${product.id}'/>">
-                        <img src="${productImage}" alt="${product.name}" onerror="this.style.display='none'">
+                        <img src="${productImage}" alt="${product.name}" onerror="this.onerror=null;this.src='${pageContext.request.contextPath}/images/product-1.svg';">
                     </a>
                     <button class="favorite-button" type="button" aria-label="Yêu thích">
                         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">

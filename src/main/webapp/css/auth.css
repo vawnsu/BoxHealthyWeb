@@ -271,7 +271,7 @@
 
 .social-row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 14px;
 }
 
@@ -287,7 +287,8 @@
     padding: 13px;
     font-weight: 900;
     background: #fff;
-    cursor: default;
+    cursor: pointer;
+    text-decoration: none;
     transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
 }
 
@@ -304,7 +305,6 @@
     flex: 0 0 auto;
 }
 .social.google { color: #ea4335; }
-.social.facebook { color: #1877f2; }
 
 .form-note {
     margin: 24px 0 0;

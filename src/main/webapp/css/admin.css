@@ -174,7 +174,7 @@
 }
 
 .admin-kicker {
-    display: inline-flex;
+    display: none;
     width: fit-content;
     padding: 7px 12px;
     border-radius: 999px;
@@ -185,15 +185,26 @@
 }
 
 .admin-page-head h1 {
-    margin: 12px 0 8px;
-    color: var(--ink);
+    position: relative;
+    margin: 0;
+    color: var(--green-dark);
     font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.06;
+    letter-spacing: 0;
+}
+
+.admin-page-head h1::after {
+    content: "";
+    display: block;
+    width: 82px;
+    height: 6px;
+    margin-top: 14px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--green), #f6c343);
 }
 
 .admin-page-head p {
-    margin: 0;
-    color: var(--muted);
-    font-size: 17px;
+    display: none;
 }
 
 .admin-primary-action,
@@ -308,14 +319,13 @@
 }
 
 .admin-panel-head h2 {
-    margin: 0 0 6px;
+    margin: 0;
     color: var(--ink);
     font-size: 24px;
 }
 
 .admin-panel-head p {
-    margin: 0;
-    color: var(--muted);
+    display: none;
 }
 
 .admin-panel-head a,
@@ -473,6 +483,51 @@
 .admin-form-panel label,
 .admin-panel label {
     margin-top: 14px;
+}
+
+.admin-filter-panel {
+    margin-bottom: 20px;
+    padding: 18px;
+    background: linear-gradient(135deg, #ffffff, #f2fff7);
+}
+
+.admin-filter-bar {
+    display: grid;
+    grid-template-columns: minmax(220px, 1.4fr) minmax(220px, 1fr) auto;
+    gap: 14px;
+    align-items: end;
+}
+
+.admin-filter-bar > div {
+    min-width: 0;
+}
+
+.admin-filter-bar label {
+    display: block;
+    margin: 0 0 7px;
+    color: var(--green-dark);
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.admin-filter-bar input,
+.admin-filter-bar select {
+    width: 100%;
+    min-height: 48px;
+    border-radius: 14px;
+    border: 1px solid #dfe7ee;
+    background: #fff;
+}
+
+.admin-filter-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.admin-filter-actions .admin-submit,
+.admin-filter-actions .admin-secondary-action {
+    margin-top: 0;
+    min-width: 96px;
 }
 
 .admin-submit {
@@ -879,6 +934,14 @@
 
     .admin-order-item {
         grid-template-columns: 58px minmax(0, 1fr);
+    }
+
+    .admin-filter-bar {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-filter-actions {
+        flex-wrap: wrap;
     }
 
     .admin-order-item span,

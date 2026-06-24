@@ -5,9 +5,7 @@
 <section class="admin-page">
     <div class="admin-page-head">
         <div>
-            <span class="admin-kicker">Category Management</span>
             <h1>Quản lý danh mục</h1>
-            <p>Quản lý các nhóm sản phẩm dự kiến của Box Healthy.</p>
         </div>
     </div>
 
@@ -18,7 +16,6 @@
             <div class="admin-panel-head">
                 <div>
                     <h2>${category.id == null ? 'Thêm danh mục' : 'Sửa danh mục'}</h2>
-                    <p>Thông tin hiển thị ở trang thực đơn và admin.</p>
                 </div>
             </div>
             <label>Tên danh mục</label>
@@ -37,7 +34,6 @@
             <div class="admin-panel-head">
                 <div>
                     <h2>Danh sách danh mục</h2>
-                    <p>Ẩn danh mục bằng trạng thái INACTIVE.</p>
                 </div>
             </div>
             <div class="admin-table-wrap">
@@ -65,6 +61,11 @@
                             </td>
                         </tr>
                     </c:forEach>
+                    <c:if test="${empty categories}">
+                        <tr>
+                            <td colspan="3" class="admin-empty-row">Chưa có danh mục nào.</td>
+                        </tr>
+                    </c:if>
                     </tbody>
                 </table>
             </div>

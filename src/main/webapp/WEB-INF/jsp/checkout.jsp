@@ -129,7 +129,7 @@
                             <c:set var="productImage" value="${pageContext.request.contextPath}${item.product.imageUrl}"/>
                         </c:if>
                         <div class="summary-item" style="--delay:${loop.index * 70}ms">
-                            <img src="${productImage}" alt="${item.product.name}">
+                            <img src="${productImage}" alt="${item.product.name}" onerror="this.onerror=null;this.src='${pageContext.request.contextPath}/images/product-1.svg';">
                             <div>
                                 <strong>${item.product.name}</strong>
                                 <small>x ${item.quantity} · ${item.product.calories} kcal</small>

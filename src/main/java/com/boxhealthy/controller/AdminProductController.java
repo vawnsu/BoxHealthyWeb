@@ -29,8 +29,13 @@ public class AdminProductController {
     }
 
     @GetMapping("/admin/products")
-    public String list(Model model) {
-        model.addAttribute("products", productService.findAll());
+    public String list(@RequestParam(required = false) String keyword,
+                       @RequestParam(required = false) Long categoryId,
+                       Model model) {
+        model.addAttribute("products", productService.searchAdmin(keyword, categoryId));
+        model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("categoryId", categoryId);
         return "admin-products";
     }
 

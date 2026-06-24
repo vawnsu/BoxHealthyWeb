@@ -45,7 +45,7 @@
                             </c:if>
                             <article class="cart-item" style="--delay:${loop.index * 70}ms">
                                 <a class="cart-product" href="<c:url value='/products/${item.product.id}'/>">
-                                    <img src="${productImage}" alt="${item.product.name}">
+                                    <img src="${productImage}" alt="${item.product.name}" onerror="this.onerror=null;this.src='${pageContext.request.contextPath}/images/product-1.svg';">
                                     <span>
                                         <strong>${item.product.name}</strong>
                                         <small>${item.product.calories} kcal · ${item.product.protein}g protein</small>
