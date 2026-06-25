@@ -18,8 +18,9 @@ public class AdminOrderController {
     }
 
     @GetMapping("/admin/orders")
-    public String list(Model model) {
-        model.addAttribute("orders", orderService.findAll());
+    public String list(@RequestParam(required = false) String keyword, Model model) {
+        model.addAttribute("orders", orderService.findByKeyword(keyword));
+        model.addAttribute("keyword", keyword);
         return "admin-orders";
     }
 

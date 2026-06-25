@@ -9,7 +9,9 @@ import com.boxhealthy.entity.Product;
 import com.boxhealthy.entity.ProductIngredient;
 import com.boxhealthy.exception.ResourceNotFoundException;
 import com.boxhealthy.repository.CategoryRepository;
+import com.boxhealthy.repository.CartItemRepository;
 import com.boxhealthy.repository.NutritionItemRepository;
+import com.boxhealthy.repository.OrderDetailRepository;
 import com.boxhealthy.repository.ProductIngredientRepository;
 import com.boxhealthy.repository.ProductRepository;
 import jakarta.transaction.Transactional;
@@ -31,6 +33,8 @@ public class ProductService {
     private final CategoryRepository categoryRepository;
     private final ProductIngredientRepository productIngredientRepository;
     private final NutritionItemRepository nutritionItemRepository;
+    private final OrderDetailRepository orderDetailRepository;
+    private final CartItemRepository cartItemRepository;
     private final String productUploadDir;
     private final String productUrlPrefix;
 
@@ -38,12 +42,16 @@ public class ProductService {
                           CategoryRepository categoryRepository,
                           ProductIngredientRepository productIngredientRepository,
                           NutritionItemRepository nutritionItemRepository,
+                          OrderDetailRepository orderDetailRepository,
+                          CartItemRepository cartItemRepository,
                           @Value("${app.upload.product-dir}") String productUploadDir,
                           @Value("${app.upload.product-url-prefix}") String productUrlPrefix) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
         this.productIngredientRepository = productIngredientRepository;
         this.nutritionItemRepository = nutritionItemRepository;
+        this.orderDetailRepository = orderDetailRepository;
+        this.cartItemRepository = cartItemRepository;
         this.productUploadDir = productUploadDir;
         this.productUrlPrefix = normalizePrefix(productUrlPrefix);
     }
@@ -167,8 +175,15 @@ public class ProductService {
     @Transactional
     public void delete(Long id) {
         Product product = getById(id);
-        product.setStatus("INACTIVE");
-        productRepository.save(product);
+        if (orderDetailRepository.existsByProductId(id)) {
+            product.setStatus("INACTIVE");
+            productRepository.save(product);
+            return;
+        }
+
+        cartItemRepository.deleteByProductId(id);
+        productIngredientRepository.deleteByProductId(id);
+        productRepository.delete(product);
     }
 
     private void syncIngredients(Product product, List<ProductIngredientFormDto> ingredientForms) {

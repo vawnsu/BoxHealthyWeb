@@ -95,9 +95,9 @@ document.addEventListener("DOMContentLoaded", function () {
             var params = new URLSearchParams({
                 amount: vietQrImg.dataset.amount || "0",
                 addInfo: note,
-                accountName: vietQrImg.dataset.accountName || "NGO VAN SU"
+                accountName: vietQrImg.dataset.accountName || "DUONG THI YEN NHI"
             });
-            vietQrImg.src = "https://img.vietqr.io/image/VCB-9904534713-compact2.png?" + params.toString();
+            vietQrImg.src = "https://img.vietqr.io/image/TPB-00000817755-print.png?" + params.toString();
         }
 
         function syncPaymentUi() {
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 panel.hidden = !isBankTransfer;
             }
             if (submitText) {
-                submitText.textContent = isBankTransfer ? "Tôi đã chuyển khoản" : "Đặt hàng";
+                submitText.textContent = isBankTransfer ? "Xác nhận chuyển khoản" : "Đặt hàng";
             }
             if (isBankTransfer) {
                 syncVietQr();
@@ -122,6 +122,81 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         syncPaymentUi();
     });
+
+    var checkoutForm = document.getElementById("checkoutForm");
+    var checkoutModal = document.querySelector("[data-checkout-confirm-modal]");
+    if (checkoutForm && checkoutModal) {
+        var paymentMethodSelect = checkoutForm.querySelector("[data-payment-method]");
+        var submitButton = checkoutForm.querySelector("[data-checkout-submit]");
+        var modalTitle = checkoutModal.querySelector("#checkoutConfirmTitle");
+        var modalMessage = checkoutModal.querySelector("[data-checkout-confirm-message]");
+        var confirmButton = checkoutModal.querySelector("[data-checkout-confirm-ok]");
+        var cancelButtons = checkoutModal.querySelectorAll("[data-checkout-confirm-cancel]");
+
+        function getPaymentMethodLabel() {
+            return paymentMethodSelect && paymentMethodSelect.value === "BANK_TRANSFER"
+                ? "Xác nhận chuyển khoản"
+                : "Đặt hàng";
+        }
+
+        function openCheckoutConfirm() {
+            var isBankTransfer = paymentMethodSelect && paymentMethodSelect.value === "BANK_TRANSFER";
+            if (modalTitle) {
+                modalTitle.textContent = isBankTransfer
+                    ? "Bạn đã chuyển khoản cho đơn này?"
+                    : "Bạn chắc chắn muốn đặt đơn?";
+            }
+            if (modalMessage) {
+                modalMessage.textContent = isBankTransfer
+                    ? "Sau khi xác nhận, Box Healthy sẽ ghi nhận đơn và kiểm tra giao dịch chuyển khoản."
+                    : "Box Healthy sẽ ghi nhận đơn COD và liên hệ xác nhận sớm.";
+            }
+            if (confirmButton) {
+                confirmButton.textContent = getPaymentMethodLabel();
+            }
+            checkoutModal.hidden = false;
+            document.body.classList.add("modal-open");
+        }
+
+        function closeCheckoutConfirm() {
+            checkoutModal.hidden = true;
+            document.body.classList.remove("modal-open");
+        }
+
+        if (submitButton) {
+            submitButton.addEventListener("click", function () {
+                if (checkoutForm.reportValidity && !checkoutForm.reportValidity()) {
+                    return;
+                }
+                openCheckoutConfirm();
+            });
+        }
+
+        checkoutForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            if (checkoutForm.reportValidity && !checkoutForm.reportValidity()) {
+                return;
+            }
+            openCheckoutConfirm();
+        });
+
+        if (confirmButton) {
+            confirmButton.addEventListener("click", function () {
+                closeCheckoutConfirm();
+                checkoutForm.submit();
+            });
+        }
+
+        cancelButtons.forEach(function (button) {
+            button.addEventListener("click", closeCheckoutConfirm);
+        });
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape" && !checkoutModal.hidden) {
+                closeCheckoutConfirm();
+            }
+        });
+    }
 
     document.querySelectorAll("[data-toggle-detail]").forEach(function (button) {
         button.addEventListener("click", function () {

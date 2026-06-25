@@ -85,6 +85,22 @@ public class OrderService {
         return orderRepository.findAllByOrderByCreatedAtDesc();
     }
 
+    public List<Order> findByKeyword(String keyword) {
+        List<Order> orders = findAll();
+        if (keyword == null || keyword.isBlank()) {
+            return orders;
+        }
+        String normalizedKeyword = keyword.trim().toLowerCase(Locale.ROOT);
+        return orders.stream()
+                .filter(order -> containsIgnoreCase(order.getCustomerName(), normalizedKeyword)
+                        || containsIgnoreCase(order.getPhone(), normalizedKeyword))
+                .toList();
+    }
+
+    private boolean containsIgnoreCase(String value, String normalizedKeyword) {
+        return value != null && value.toLowerCase(Locale.ROOT).contains(normalizedKeyword);
+    }
+
     public List<Order> findRecent(int limit) {
         if (limit <= 5) {
             return orderRepository.findTop5ByOrderByCreatedAtDesc();

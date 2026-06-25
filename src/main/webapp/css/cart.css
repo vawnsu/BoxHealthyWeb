@@ -449,7 +449,7 @@
 
 .bank-transfer-panel {
     display: grid;
-    grid-template-columns: 280px minmax(0, 1fr);
+    grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
     gap: 22px;
     align-items: center;
     margin-top: 20px;
@@ -464,17 +464,21 @@
 }
 
 .bank-transfer-qr {
-    padding: 14px;
-    border-radius: 22px;
-    background: #fff;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 24px;
+    background: linear-gradient(180deg, #15123f, #7a38b8);
     border: 1px solid #dcefe2;
     box-shadow: 0 14px 30px rgba(23, 32, 51, 0.08);
 }
 
 .bank-transfer-qr img {
     width: 100%;
-    aspect-ratio: 1;
+    min-height: 360px;
+    max-height: 520px;
     object-fit: contain;
+    display: block;
+    background: #fff;
 }
 
 .bank-transfer-info h4 {
@@ -512,6 +516,81 @@
     border-radius: 6px;
     background: rgba(5, 184, 79, 0.10);
     color: var(--green-dark);
+}
+
+.checkout-confirm-modal[hidden] {
+    display: none;
+}
+
+.checkout-confirm-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+}
+
+.checkout-confirm-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.48);
+    backdrop-filter: blur(8px);
+}
+
+.checkout-confirm-dialog {
+    position: relative;
+    width: min(460px, 100%);
+    padding: 30px;
+    border-radius: 26px;
+    background: #fff;
+    border: 1px solid rgba(5, 184, 79, 0.16);
+    box-shadow: 0 28px 70px rgba(15, 23, 42, 0.22);
+}
+
+.checkout-confirm-dialog h3 {
+    margin: 10px 0 10px;
+    color: var(--ink);
+    font-size: 28px;
+    line-height: 1.16;
+}
+
+.checkout-confirm-dialog p {
+    margin: 0;
+    color: var(--muted);
+    font-weight: 750;
+    line-height: 1.55;
+}
+
+.checkout-confirm-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 42px;
+    height: 42px;
+    border: 0;
+    border-radius: 50%;
+    background: #f1f5f9;
+    color: var(--ink);
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.checkout-confirm-actions {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.checkout-confirm-actions .btn {
+    min-height: 48px;
+    border-radius: 14px;
+}
+
+body.modal-open {
+    overflow: hidden;
 }
 
 .summary-items {

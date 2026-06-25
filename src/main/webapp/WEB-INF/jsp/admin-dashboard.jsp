@@ -30,50 +30,6 @@
         </article>
     </div>
 
-    <section class="admin-panel revenue-panel">
-        <div class="admin-panel-head revenue-head">
-            <div>
-                <h2>Doanh thu theo thời gian</h2>
-            </div>
-            <div class="admin-range-tabs">
-                <a class="${period == 'week' ? 'active' : ''}" href="${pageContext.request.contextPath}/admin?period=week">Tuần</a>
-                <a class="${period == 'month' ? 'active' : ''}" href="${pageContext.request.contextPath}/admin?period=month">Tháng</a>
-                <a class="${period == 'year' ? 'active' : ''}" href="${pageContext.request.contextPath}/admin?period=year">Năm</a>
-            </div>
-        </div>
-
-        <div class="revenue-summary-grid">
-            <article>
-                <span>Doanh thu kỳ này</span>
-                <strong><fmt:formatNumber value="${periodRevenue}" type="number"/>đ</strong>
-            </article>
-            <article>
-                <span>Đơn hoàn tất</span>
-                <strong>${periodOrderCount}</strong>
-            </article>
-            <article>
-                <span>Trung bình mỗi đơn</span>
-                <strong><fmt:formatNumber value="${averageOrderValue}" type="number"/>đ</strong>
-            </article>
-        </div>
-
-        <div class="revenue-chart-wrap">
-            <div class="revenue-bars">
-                <c:forEach items="${revenueChart}" var="point">
-                    <div class="revenue-bar-item" title="${point.label}: ${point.revenue}">
-                        <div class="revenue-bar-track">
-                            <span style="height: ${point.percent}%"></span>
-                        </div>
-                        <small>${point.label}</small>
-                    </div>
-                </c:forEach>
-            </div>
-            <svg class="revenue-line-chart" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                <polyline points="${lineChartPoints}" />
-            </svg>
-        </div>
-    </section>
-
     <div class="admin-dashboard-grid">
         <section class="admin-panel">
             <div class="admin-panel-head">
@@ -86,7 +42,6 @@
                 <table class="admin-table">
                     <thead>
                     <tr>
-                        <th>Mã</th>
                         <th>Khách hàng</th>
                         <th>Tổng tiền</th>
                         <th>Trạng thái</th>
@@ -96,7 +51,6 @@
                     <tbody>
                     <c:forEach items="${recentOrders}" var="order">
                         <tr>
-                            <td>#${order.id}</td>
                             <td>${order.customerName}</td>
                             <td><fmt:formatNumber value="${order.totalAmount}" type="number"/>đ</td>
                             <td><span class="admin-status status-${order.orderStatus}">${order.orderStatus}</span></td>
@@ -105,7 +59,7 @@
                     </c:forEach>
                     <c:if test="${empty recentOrders}">
                         <tr>
-                            <td colspan="5" class="admin-empty-row">Chưa có đơn hàng nào.</td>
+                            <td colspan="4" class="admin-empty-row">Chưa có đơn hàng nào.</td>
                         </tr>
                     </c:if>
                     </tbody>

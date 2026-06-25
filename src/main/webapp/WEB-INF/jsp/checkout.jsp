@@ -15,7 +15,7 @@
         </div>
 
         <div class="checkout-layout">
-            <form class="checkout-form panel reveal-on-scroll" action="<c:url value='/checkout'/>" method="post">
+            <form id="checkoutForm" class="checkout-form panel reveal-on-scroll" action="<c:url value='/checkout'/>" method="post">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                 <div class="panel-heading">
                     <div>
@@ -69,25 +69,26 @@
                 <div class="bank-transfer-panel" data-bank-transfer-panel hidden>
                     <div class="bank-transfer-qr">
                         <img
-                            src="https://img.vietqr.io/image/TPB-00000817755-compact2.png?amount=${vietQrAmount}&amp;addInfo=BOXHEALTHY&amp;accountName=DUONG%20THI%20YEN%20NHI"                            alt="Mã QR chuyển khoản Box Healthy"
+                            src="https://img.vietqr.io/image/TPB-00000817755-print.png?amount=${vietQrAmount}&amp;addInfo=BOXHEALTHY&amp;accountName=DUONG%20THI%20YEN%20NHI"
+                            alt="Mã QR chuyển khoản Box Healthy"
                             data-vietqr-img
                             data-amount="${vietQrAmount}"
-                            data-account-name="">
+                            data-account-name="DUONG THI YEN NHI">
                     </div>
                     <div class="bank-transfer-info">
                         <h4>Quét mã QR thanh toán</h4>
                         <dl>
                             <div>
                                 <dt>Ngân hàng</dt>
-                                <dd>Vietcombank (VCB)</dd>
+                                <dd>TPBank</dd>
                             </div>
                             <div>
                                 <dt>Số tài khoản</dt>
-                                <dd>9904534713</dd>
+                                <dd>00000817755</dd>
                             </div>
                             <div>
                                 <dt>Người nhận</dt>
-                                <dd>NGO VAN SU</dd>
+                                <dd>DUONG THI YEN NHI</dd>
                             </div>
                             <div>
                                 <dt>Nội dung</dt>
@@ -97,7 +98,7 @@
                     </div>
                 </div>
 
-                <button class="checkout-submit" type="submit" data-checkout-submit>
+                <button class="checkout-submit" type="button" data-checkout-submit>
                     <span data-checkout-submit-text>Đặt hàng</span>
                     <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M5 12h14"></path>
@@ -146,5 +147,19 @@
         </div>
     </div>
 </section>
+
+<div class="checkout-confirm-modal" data-checkout-confirm-modal hidden>
+    <div class="checkout-confirm-backdrop" data-checkout-confirm-cancel></div>
+    <div class="checkout-confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="checkoutConfirmTitle">
+        <button class="checkout-confirm-close" type="button" aria-label="Đóng" data-checkout-confirm-cancel>&times;</button>
+        <span class="eyebrow">Xác nhận đơn hàng</span>
+        <h3 id="checkoutConfirmTitle">Bạn chắc chắn muốn đặt đơn?</h3>
+        <p data-checkout-confirm-message>Box Healthy sẽ ghi nhận đơn và liên hệ xác nhận sớm.</p>
+        <div class="checkout-confirm-actions">
+            <button class="btn ghost" type="button" data-checkout-confirm-cancel>Kiểm tra lại</button>
+            <button class="btn primary" type="button" data-checkout-confirm-ok>Xác nhận đặt hàng</button>
+        </div>
+    </div>
+</div>
 
 <jsp:include page="common/footer.jsp"/>
