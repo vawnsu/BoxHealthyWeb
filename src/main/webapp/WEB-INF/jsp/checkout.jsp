@@ -76,7 +76,7 @@
                             data-account-name="DUONG THI YEN NHI">
                     </div>
                     <div class="bank-transfer-info">
-                        <h4>Quét mã QR thanh toán</h4>
+
                         <dl>
                             <div>
                                 <dt>Ngân hàng</dt>
@@ -89,10 +89,6 @@
                             <div>
                                 <dt>Người nhận</dt>
                                 <dd>DUONG THI YEN NHI</dd>
-                            </div>
-                            <div>
-                                <dt>Nội dung</dt>
-                                <dd><code data-transfer-note>BOXHEALTHY</code></dd>
                             </div>
                         </dl>
                     </div>
