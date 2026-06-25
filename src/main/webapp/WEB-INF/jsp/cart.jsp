@@ -8,9 +8,7 @@
 <section class="section soft cart-page">
     <div class="container">
         <div class="section-title checkout-title reveal-on-scroll">
-            <span class="eyebrow">Giỏ món của bạn</span>
-            <h2>Giỏ hàng</h2>
-            <p>Kiểm tra khẩu phần, số lượng và tổng tiền trước khi đặt bữa.</p>
+            <h2>Giỏ hàng của bạn</h2>
         </div>
 
         <c:choose>
@@ -56,19 +54,19 @@
                                     <fmt:formatNumber value="${item.product.price}" type="number"/>đ
                                 </div>
 
-                                <form class="quantity-form" action="<c:url value='/cart/update/${item.product.id}'/>" method="post">
-                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                                    <input type="number" min="0" name="quantity" value="${item.quantity}" aria-label="Số lượng ${item.product.name}">
-                                    <button class="cart-update-button" type="submit" aria-label="Cập nhật số lượng ${item.product.name}">
-                                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-                                            <path d="M21 12a9 9 0 0 1-15.4 6.4L3 16"></path>
-                                            <path d="M3 21v-5h5"></path>
-                                            <path d="M3 12a9 9 0 0 1 15.4-6.4L21 8"></path>
-                                            <path d="M21 3v5h-5"></path>
-                                        </svg>
-                                        <span>Cập nhật</span>
-                                    </button>
-                                </form>
+                                <div class="quantity-stepper" aria-label="Số lượng ${item.product.name}">
+                                    <form action="<c:url value='/cart/update/${item.product.id}'/>" method="post">
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                                        <input type="hidden" name="quantity" value="${item.quantity - 1}">
+                                        <button class="quantity-step-button" type="submit" aria-label="Giảm số lượng ${item.product.name}">-</button>
+                                    </form>
+                                    <span class="quantity-value">${item.quantity}</span>
+                                    <form action="<c:url value='/cart/update/${item.product.id}'/>" method="post">
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                                        <input type="hidden" name="quantity" value="${item.quantity + 1}">
+                                        <button class="quantity-step-button" type="submit" aria-label="Tăng số lượng ${item.product.name}">+</button>
+                                    </form>
+                                </div>
 
                                 <div class="cart-subtotal">
                                     <strong><fmt:formatNumber value="${item.subtotal}" type="number"/>đ</strong>
